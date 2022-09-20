@@ -2,15 +2,15 @@ import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ContactList from '../components/ContactList';
 import SearchBar from '../components/SearchBar';
-import { deleteContact, getContacts } from '../utils/data';
+import { deleteContact, getContacts } from '../utils/api';
 
 class HomePage extends React.Component {
     constructor(props) {
         super(props)
-        
+
 
         this.state = {
-            contacts: getContacts(),
+            contacts: [],
             keyword: props.defaultKeyword || '',
         }
 
@@ -18,12 +18,14 @@ class HomePage extends React.Component {
         this.onKeywordChangeHandler = this.onKeywordChangeHandler.bind(this)
     }
 
-    onDeleteHandler(id) {
-        deleteContact(id);
+    async onDeleteHandler(id) {
+        await deleteContact(id);
+
+        const { data } = await getContacts()
 
         this.setState(() => {
             return {
-                contacts: getContacts()
+                contacts: data
             }
         })
     }
@@ -36,6 +38,16 @@ class HomePage extends React.Component {
         });
 
         this.props.keywordChange(keyword);
+    }
+
+    async componentDidMount() {
+        const { data } = await getContacts();
+
+        this.setState(() => {
+            return {
+                contacts: data
+            }
+        })
     }
 
     render() {
@@ -61,11 +73,11 @@ function HomePageWrapper() {
 
     const keyword = searchParams.get('keyword')
 
-    function changeSearchParams(keyword){
-        setSearchParams({keyword})
+    function changeSearchParams(keyword) {
+        setSearchParams({ keyword })
     }
 
-    return <HomePage defaultKeyword={keyword} keywordChange={changeSearchParams}/>
+    return <HomePage defaultKeyword={keyword} keywordChange={changeSearchParams} />
 }
 
 export default HomePageWrapper;
