@@ -2,6 +2,7 @@ import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ContactList from '../components/ContactList';
 import SearchBar from '../components/SearchBar';
+import { LocaleConsumer } from '../context/LocaleContext';
 import { deleteContact, getContacts } from '../utils/api';
 
 class HomePage extends React.Component {
@@ -58,11 +59,19 @@ class HomePage extends React.Component {
         })
 
         return (
-            <section>
-                <SearchBar keyword={this.state.keyword} keywordChange={this.onKeywordChangeHandler} />
-                <h2>Daftar Kontak</h2>
-                <ContactList contacts={contacts} onDelete={this.onDeleteHandler} />
-            </section>
+            <LocaleConsumer>
+                {
+                    ({ locale }) => {
+                        return (
+                            <section>
+                                <SearchBar keyword={this.state.keyword} keywordChange={this.onKeywordChangeHandler} />
+                                <h2>{locale === 'id' ? 'Daftar Kontak' : 'Contacts List'}</h2>
+                                <ContactList contacts={contacts} onDelete={this.onDeleteHandler} />
+                            </section>
+                        )
+                    }
+                }
+            </LocaleConsumer>
         )
     }
 
