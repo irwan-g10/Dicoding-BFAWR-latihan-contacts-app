@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LocaleConsumer } from '../context/LocaleContext';
+import { LocaleConsumer } from '../contexts/LocaleContext';
 
 function SearchBar({ keyword, keywordChange }) {
   return (

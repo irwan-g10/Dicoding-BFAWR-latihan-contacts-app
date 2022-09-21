@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FiHome, FiPlusCircle, FiLogOut } from 'react-icons/fi';
-import { LocaleConsumer } from '../context/LocaleContext';
+import { LocaleConsumer } from '../contexts/LocaleContext';
 
 function Navigation({ logout, name }) {
-    // console.log(name,)
     return (
         <LocaleConsumer>
             {

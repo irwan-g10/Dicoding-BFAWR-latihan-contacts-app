@@ -7,7 +7,7 @@ import RegisterPage from '../pages/RegisterPage';
 import LoginPage from '../pages/LoginPage';
 
 import { getUserLogged, putAccessToken } from '../utils/api';
-import { LocaleProvider } from '../context/LocaleContext';
+import { LocaleProvider } from '../contexts/LocaleContext';
 
 class ContactApp extends React.Component {
 
